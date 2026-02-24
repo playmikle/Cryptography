@@ -137,7 +137,6 @@ def generate_rsa_keys(p, q):
 # ============= СИМУЛЯТОР ЭНИГМЫ =============
 class EnigmaSimulator:
     def __init__(self):
-        # Стандартная проводка роторов (как в реальной Энигме)
         self.rotor1 = list("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
         self.rotor2 = list("AJDKSIRUXBLHWTMCQGZNPYFVOE")
         self.rotor3 = list("BDFHJLCPRTXVZNYEIWGAKMUSQO")
@@ -168,7 +167,6 @@ class EnigmaSimulator:
         char = char.upper()
         idx = ord(char) - 65
         
-        # Проход через роторы вперед (с учетом позиций)
         idx = (idx + self.rotor1_pos) % 26
         idx = ord(self.rotor1[idx]) - 65
         idx = (idx - self.rotor1_pos) % 26
@@ -181,10 +179,8 @@ class EnigmaSimulator:
         idx = ord(self.rotor3[idx]) - 65
         idx = (idx - self.rotor3_pos) % 26
         
-        # Рефлектор
         idx = ord(self.reflector[idx]) - 65
         
-        # Обратный проход через роторы
         idx = (idx + self.rotor3_pos) % 26
         idx = self.rotor3.index(chr(idx + 65))
         idx = (idx - self.rotor3_pos) % 26
@@ -209,7 +205,6 @@ class EnigmaSimulator:
         
 class ECCSimulator:
     def __init__(self):
-        # Параметры по умолчанию (учебная кривая)
         self.set_curve(23, 1, 1, (17, 20))
     
     def set_curve(self, p, a, b, G):
@@ -397,11 +392,11 @@ with tab1:
         col_btn1, col_btn2 = st.columns(2)
         with col_btn1:
             if st.button("🔒 Зашифровать", use_container_width=True, key="caesar_encrypt_btn"):
-                result = caesar_encrypt(text_input, shift)  # ваша функция
+                result = caesar_encrypt(text_input, shift)  
                 st.session_state['caesar_result'] = result
         with col_btn2:
             if st.button("🔓 Расшифровать", use_container_width=True, key="caesar_decrypt_btn"):
-                result = caesar_decrypt(text_input, shift)  # ваша функция
+                result = caesar_decrypt(text_input, shift)  
                 st.session_state['caesar_result'] = result
         
         if 'caesar_result' in st.session_state:
@@ -412,7 +407,7 @@ with tab1:
         brute_input = st.text_area("Текст для взлома:", "WKLVLVDVHFUHWPHVVDJH", height=100, key="brute_input")
         
         if st.button("⚡ Перебор всех сдвигов", use_container_width=True, key="caesar_bruteforce_btn"):
-            results = caesar_bruteforce(brute_input)  # ваша функция
+            results = caesar_bruteforce(brute_input)  
             st.session_state['brute_results'] = results
         
         if 'brute_results' in st.session_state:
@@ -423,11 +418,11 @@ with tab1:
         freq_input = st.text_area("Текст для анализа:", "WKLVLVDVHFUHWPHVVDJH", height=100, key="freq_input")
 
         if st.button("📊 Анализировать частоты", use_container_width=True, key="caesar_freq_btn"):
-            freq_result = frequency_analysis(freq_input)  # Это возвращает строку
+            freq_result = frequency_analysis(freq_input)  
             st.session_state['freq_result'] = freq_result
 
         if 'freq_result' in st.session_state:
-            st.text(st.session_state['freq_result'])  # Просто показываем текст
+            st.text(st.session_state['freq_result'])  
 
 # ============= ВКЛАДКА 2: ШИФР ВИЖЕНЕРА =============
 with tab2:
@@ -439,12 +434,12 @@ with tab2:
         vig_key = st.text_input("Ключевое слово:", "KEY")
         
         if st.button("🔒 Зашифровать", use_container_width=True, key="vig_encrypt_btn"):
-            result = vigenere_encrypt(vig_text, vig_key)  # ваша функция
+            result = vigenere_encrypt(vig_text, vig_key)  
             st.session_state['vig_result'] = result
     
     with col2:
         if st.button("🔓 Расшифровать", use_container_width=True, key="vig_decrypt_btn"):
-            result = vigenere_decrypt(vig_text, vig_key)  # ваша функция
+            result = vigenere_decrypt(vig_text, vig_key)  
             st.session_state['vig_result'] = result
     
     if 'vig_result' in st.session_state:
@@ -460,7 +455,7 @@ with tab3:
         q = st.number_input("Простое число q:", min_value=2, max_value=1000, value=53)
         
         if st.button("⚙️ Сгенерировать ключи", use_container_width=True, key="rsa_generate_btn"):
-            keys, message = generate_rsa_keys(int(p), int(q))  # ваша функция
+            keys, message = generate_rsa_keys(int(p), int(q))  
             if keys:
                 st.session_state['rsa_keys'] = keys
                 st.success(message)
@@ -480,7 +475,7 @@ with tab4:
     st.subheader("Симулятор Энигмы")
     
     if 'enigma' not in st.session_state:
-        st.session_state['enigma'] = EnigmaSimulator()  # ваш класс
+        st.session_state['enigma'] = EnigmaSimulator()  
     
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -567,7 +562,6 @@ with tab5:
                 st.error("Не удалось сгенерировать ключ. Попробуйте другое число.")
     
     with col2:
-        # 👇 ЭТА КНОПКА БЫЛА ПОТЕРЯНА - ВОТ ОНА:
         if st.button("📊 Показать все точки кривой", key="ecc_show_points_btn"):
             points = st.session_state['ecc'].get_all_points()
             
@@ -613,5 +607,4 @@ with tab5:
 
 # ============= ЗАПУСК =============
 if __name__ == "__main__":
-    # Запускать через терминал: streamlit run web_app.py
     pass
