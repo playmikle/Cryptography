@@ -794,16 +794,27 @@ with tab8:
 
 Список литературы:
 The Codebreakers: The Comprehensive History of Secret Communication from Ancient Times to the Internet
+
 The Code Book: The Science of Secrecy from Ancient Egypt to Quantum Cryptography
+
 History of Cryptography (из курса CPSC 420, Clemson University)
+
 Shift Cipher, Substitution Cipher, Vigenère Cipher, Hill Cipher (из курса по системам безопасности)
+
 Alan Turing, Enigma, and the Breaking of German Machine Ciphers in World War II
+
 Solving the ENIGMA: History of the Cryptanalytic Bombe 
-How Alan Turing Cracked The Enigma Code  
+
+How Alan Turing Cracked The Enigma Code
+  
 History and Machines of Cryptography 
+
 Abridged History of Cryptography: Caesar Cipher, Vigenère Cipher
+
 Расшифрованные секреты: Методы и принципы криптографии 
+
 Криптографические методы защиты информации 
+
 """)
     
 # ============= ЗАПУСК =============
